@@ -1,0 +1,25 @@
+<div class="container">
+  <form>
+    <h1>Cadastrar</h1>
+    <label>Title</label>
+    <input type="text" name="title">
+    <label>Description</label>
+    <input type="text" name="description">
+    <button>Criar</button>
+  </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of tasks$ | async">
+        <td>{{ task.title }}</td>
+        <td>{{ task.description }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
