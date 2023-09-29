@@ -11,11 +11,26 @@ import { Observable } from 'rxjs';
 export class TaskComponent {
   tasks$ = new Observable<Task[]>();
 
+  title = '';
+  description = '';
+
   constructor(private taskService: TaskService) {
     this.getTasks();
   }
 
   getTasks() {
     this.tasks$ = this.taskService.getTasks();
+  }
+
+  createTask() {
+    const user_id = localStorage.getItem('user_id');
+
+    this.taskService
+      .createTask({
+        title: this.title,
+        description: this.description,
+        user_id,
+      })
+      .subscribe(() => this.getTasks());
   }
 }

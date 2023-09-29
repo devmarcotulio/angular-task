@@ -23,12 +23,12 @@ export class LoginComponent {
     }
     this.loginService.login({ email, password }).subscribe(
       (response) => {
-        if (!response.token) {
-          console.log('O serviço de login não retornou um token válido');
+        if (!response.token || !response.user_id) {
           return;
         }
 
         localStorage.setItem('token', response.token);
+        localStorage.setItem('user_id', response.user_id);
 
         this.router.navigate(['/task']);
       },

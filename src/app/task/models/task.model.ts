@@ -1,4 +1,5 @@
 export interface Task {
-  title: string,
-  description: string
+  user_id: string | null;
+  title: string;
+  description: string;
 }

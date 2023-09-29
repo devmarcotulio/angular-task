@@ -1,11 +1,11 @@
 <div class="container">
-  <form>
+  <form (ngSubmit)="createTask()">
     <h1>Cadastrar</h1>
     <label>Title</label>
-    <input type="text" name="title">
+    <input type="text" name="title" [(ngModel)]="title">
     <label>Description</label>
-    <input type="text" name="description">
-    <button>Criar</button>
+    <input type="text" name="description" [(ngModel)]="description">
+    <button type="submit">Criar</button>
   </form>
 
   <table>

@@ -19,4 +19,16 @@ export class TaskService {
       headers,
     });
   }
+
+  createTask(task: Task) {
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.httpCliente.post<Task>('http://localhost:3000/tasks', task, {
+      headers,
+    });
+  }
 }
