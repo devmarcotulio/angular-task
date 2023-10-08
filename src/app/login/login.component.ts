@@ -13,31 +13,27 @@ export class LoginComponent {
 
   constructor(private loginService: LoginService, private router: Router) {}
 
-  login(): void {
-    const email = this.email;
-    const password = this.password;
-
+  login() {
     if (!this.email || !this.password) {
-      console.log('Preencha todos os campos');
+      window.alert('Preencha todos os campos');
       return;
     }
-    this.loginService.login({ email, password }).subscribe(
-      (response) => {
-        if (!response.token || !response.user_id) {
-          return;
-        }
+    this.loginService
+      .login({ email: this.email, password: this.password })
+      .subscribe(
+        (response) => {
+          if (!response.token || !response.user_id) {
+            return;
+          }
 
-        localStorage.setItem('token', response.token);
-        localStorage.setItem('user_id', response.user_id);
+          localStorage.setItem('token', response.token);
+          localStorage.setItem('user_id', response.user_id);
 
-        this.router.navigate(['/task']);
-      },
-      (error) => {
-        if (error.error) {
-          const message = JSON.stringify(error.error.message);
-          window.alert(message);
+          this.router.navigate(['/task']);
+        },
+        (error) => {
+          window.alert(JSON.stringify(error.error.message));
         }
-      }
-    );
+      );
   }
 }

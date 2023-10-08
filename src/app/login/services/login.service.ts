@@ -7,9 +7,10 @@ import { Login } from '../models/login.model';
   providedIn: 'root',
 })
 export class LoginService {
+  private readonly LOGIN_API_URL = 'http://localhost:3000/auth';
   constructor(private http: HttpClient) {}
 
   login({ email, password }: Login): Observable<any> {
-    return this.http.post('http://localhost:3000/auth', { email, password });
+    return this.http.post(this.LOGIN_API_URL, { email, password });
   }
 }

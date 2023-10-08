@@ -1,11 +1,11 @@
 <div class="container">
   <form (ngSubmit)="createTask()">
-    <h1>Cadastrar</h1>
+    <h1>{{ id ? 'Editar' : 'Cadastrar'}}</h1>
     <label>Title</label>
     <input type="text" name="title" [(ngModel)]="title">
     <label>Description</label>
     <input type="text" name="description" [(ngModel)]="description">
-    <button type="submit">Criar</button>
+    <button type="submit">{{ id ? 'Editar' : 'Cadastrar'}}</button>
   </form>
 
   <table>
@@ -13,12 +13,20 @@
       <tr>
         <th>Title</th>
         <th>Description</th>
+        <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let task of tasks$ | async">
         <td>{{ task.title }}</td>
         <td>{{ task.description }}</td>
+        <td>
+          <button>Remove</button>
+        </td>
+        <td>
+          <button>Update</button>
+        </td>
       </tr>
     </tbody>
   </table>

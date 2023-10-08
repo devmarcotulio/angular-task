@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 export class TaskComponent {
   tasks$ = new Observable<Task[]>();
 
+  id = '';
   title = '';
   description = '';
 
@@ -31,6 +32,12 @@ export class TaskComponent {
         description: this.description,
         user_id,
       })
-      .subscribe(() => this.getTasks());
+      .subscribe(
+        (_response) => {},
+        (error) => {
+          window.alert(JSON.stringify(error.error.message));
+        },
+        () => this.getTasks()
+      );
   }
 }

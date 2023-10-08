@@ -6,29 +6,41 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class TaskService {
+  private readonly token = localStorage.getItem('token');
+  private readonly TASKS_API_URL = 'http://localhost:3000/tasks';
+  private readonly headers: HttpHeaders = new HttpHeaders({
+    Authorization: `Bearer ${this.token}`,
+  });
+
   constructor(private httpCliente: HttpClient) {}
 
   getTasks() {
-    const token = localStorage.getItem('token');
-
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
+    return this.httpCliente.get<Task[]>(this.TASKS_API_URL, {
+      headers: this.headers,
     });
+  }
 
-    return this.httpCliente.get<Task[]>('http://localhost:3000/tasks', {
-      headers,
+  getTaskByTitle(title: string) {
+    return this.httpCliente.get<Task>(`${this.TASKS_API_URL}/title/${title}`, {
+      headers: this.headers,
     });
   }
 
   createTask(task: Task) {
-    const token = localStorage.getItem('token');
-
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
+    return this.httpCliente.post<Task>(this.TASKS_API_URL, task, {
+      headers: this.headers,
     });
+  }
 
-    return this.httpCliente.post<Task>('http://localhost:3000/tasks', task, {
-      headers,
+  deleteTask(id: string | null) {
+    return this.httpCliente.delete<Task>(`${this.TASKS_API_URL}/${id}`, {
+      headers: this.headers,
+    });
+  }
+
+  updateTask(id: string, task: Task) {
+    return this.httpCliente.patch<Task>(`${this.TASKS_API_URL}/${id}`, task, {
+      headers: this.headers,
     });
   }
 }
