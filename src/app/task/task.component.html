@@ -1,11 +1,11 @@
 <div class="container">
-  <form (ngSubmit)="createTask()">
-    <h1>{{ id ? 'Editar' : 'Cadastrar'}}</h1>
-    <label>Title</label>
-    <input type="text" name="title" [(ngModel)]="title">
-    <label>Description</label>
-    <input type="text" name="description" [(ngModel)]="description">
-    <button type="submit">{{ id ? 'Editar' : 'Cadastrar'}}</button>
+  <form (ngSubmit)="createTask()" class="form-group" [formGroup]="formGroup">
+    <h1>Cadastrar</h1>
+    <label for="title">Title</label>
+    <input type="text" name="title" formControlName="title" required="">
+    <label for="description">Description</label>
+    <input type="text" name="description" formControlName="description" required="">
+    <button type="submit">Cadastrar</button>
   </form>
 
   <table>

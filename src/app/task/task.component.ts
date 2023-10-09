@@ -1,22 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TaskService } from './services/task.service';
 import { Task } from './models/task.model';
 import { Observable } from 'rxjs';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.scss'],
 })
-export class TaskComponent {
+export class TaskComponent implements OnInit {
   tasks$ = new Observable<Task[]>();
 
-  id = '';
-  title = '';
-  description = '';
+  formGroup!: FormGroup;
 
-  constructor(private taskService: TaskService) {
+  constructor(
+    private taskService: TaskService,
+    private formBuilder: FormBuilder
+  ) {
     this.getTasks();
+  }
+
+  ngOnInit(): void {
+    this.formGroup = this.formBuilder.group({
+      title: '',
+      description: '',
+    });
   }
 
   getTasks() {
@@ -24,12 +33,13 @@ export class TaskComponent {
   }
 
   createTask() {
+    const { title, description } = this.formGroup.value;
     const user_id = localStorage.getItem('user_id');
 
     this.taskService
       .createTask({
-        title: this.title,
-        description: this.description,
+        title,
+        description,
         user_id,
       })
       .subscribe(
