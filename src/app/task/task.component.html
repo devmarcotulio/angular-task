@@ -1,4 +1,5 @@
 <div class="container">
+  <button (click)="logout()">Logout</button>
   <form (ngSubmit)="createTask()" class="form-group" [formGroup]="formGroup">
     <h1>Cadastrar</h1>
     <label for="title">Title</label>

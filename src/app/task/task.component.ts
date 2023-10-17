@@ -3,6 +3,7 @@ import { TaskService } from './services/task.service';
 import { Task } from './models/task.model';
 import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-task',
@@ -16,7 +17,8 @@ export class TaskComponent implements OnInit {
 
   constructor(
     private taskService: TaskService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router
   ) {
     this.getTasks();
   }
@@ -49,5 +51,11 @@ export class TaskComponent implements OnInit {
         },
         () => this.getTasks()
       );
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+
+    this.router.navigate(['']);
   }
 }
